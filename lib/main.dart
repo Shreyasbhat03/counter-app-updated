@@ -28,9 +28,7 @@ class MyApp extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomLeft,
-                colors: [Colors.blue,
-                  Colors.blue,
-                  Colors.black12],
+                colors: [Colors.blue, Colors.blue, Colors.black12],
                 stops: [0.3, 1.0, 0.0],
               ),
             ),
@@ -41,6 +39,8 @@ class MyApp extends StatelessWidget {
                 double screenWidth = MediaQuery.of(context).size.width;
                 print('Screen height: $screenHeight, Screen width: $screenWidth');
 
+                bool isSmallScreen = screenWidth < 600;
+
                 return Align(
                   alignment: Alignment.center,
                   child: Column(
@@ -48,14 +48,24 @@ class MyApp extends StatelessWidget {
                     children: [
                       CounterText(),
                       SizedBox(height: 50),
-                      Row(
+                      isSmallScreen
+                          ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IncrementButton(),
+                          SizedBox(height: 50),
+                          DecrementButton(),
+                          SizedBox(height: 50),
+                          ResetButton(),
+                        ],
+                      )
+                          : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-
-                            IncrementButton(),
-                            DecrementButton(),
-                            ResetButton(),
+                          IncrementButton(),
+                          DecrementButton(),
+                          ResetButton(),
                         ],
                       ),
                     ],
